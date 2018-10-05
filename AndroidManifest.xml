@@ -34,7 +34,7 @@
             android:name=".view.ViewInfoActivity"
             android:theme="@style/AppThemeEmergency"
             android:taskAffinity="com.android.settings"
-            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
             android:icon="@drawable/ic_launcher_settings"
             android:launchMode="singleTask">
             <intent-filter>
@@ -98,14 +98,6 @@
             <intent-filter>
                 <action android:name="android.content.action.SEARCH_INDEXABLES_PROVIDER" />
             </intent-filter>
-        </provider>
-
-        <provider
-            android:name=".EmergencyInfoNameProvider"
-            android:authorities="com.android.emergency.info.name"
-            android:directBootAware="true"
-            android:exported="true"
-            android:readPermission="com.android.emergency.permission.READ_EMERGENCY_INFO_NAME">
         </provider>
 
     </application>
