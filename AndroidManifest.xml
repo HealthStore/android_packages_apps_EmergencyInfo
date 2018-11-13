@@ -21,6 +21,7 @@
     <uses-permission android:name="android.permission.CALL_PRIVILEGED" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.MANAGE_USERS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
     <uses-sdk android:minSdkVersion="21"/>
 
@@ -34,7 +35,7 @@
             android:name=".view.ViewInfoActivity"
             android:theme="@style/AppThemeEmergency"
             android:taskAffinity="com.android.settings"
-            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
             android:icon="@drawable/ic_launcher_settings"
             android:launchMode="singleTask">
             <intent-filter>
@@ -101,11 +102,13 @@
         </provider>
 
         <provider
-            android:name=".EmergencyInfoNameProvider"
-            android:authorities="com.android.emergency.info.name"
-            android:directBootAware="true"
-            android:exported="true"
-            android:readPermission="com.android.emergency.permission.READ_EMERGENCY_INFO_NAME">
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.android.emergency.files"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
         </provider>
 
     </application>
