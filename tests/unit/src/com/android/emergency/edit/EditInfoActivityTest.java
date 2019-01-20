@@ -15,10 +15,11 @@
  */
 package com.android.emergency.edit;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
@@ -31,11 +32,12 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
+
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.PreferenceManager;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.android.emergency.ContactTestUtils;
 import com.android.emergency.PreferenceKeys;
@@ -44,9 +46,6 @@ import com.android.emergency.preferences.EmergencyContactsPreference;
 import com.android.emergency.preferences.EmergencyEditTextPreference;
 import com.android.emergency.preferences.EmergencyListPreference;
 import com.android.emergency.util.PreferenceUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -81,7 +80,8 @@ public final class EditInfoActivityTest {
         // Because the initial state of each preference is empty, the edit activity removes the
         // preference. As a result, we expect them all to be null.
         for (String key : PreferenceKeys.KEYS_EDIT_EMERGENCY_INFO) {
-            assertWithMessage(key).that(medicalInfoParent.findPreference(key)).isNull();
+            assertWithMessage(key).that((Preference) medicalInfoParent.findPreference(key))
+                    .isNull();
         }
         EmergencyContactsPreference emergencyContactsPreference =
                 (EmergencyContactsPreference) fragment.findPreference(
@@ -203,7 +203,8 @@ public final class EditInfoActivityTest {
         // The preference values are not displayed, being empty.
         PreferenceGroup medicalInfoParent = fragment.getMedicalInfoParent();
         for (String key : PreferenceKeys.KEYS_EDIT_EMERGENCY_INFO) {
-            assertWithMessage(key).that(medicalInfoParent.findPreference(key)).isNull();
+            assertWithMessage(key).that((Preference) medicalInfoParent.findPreference(key))
+                    .isNull();
         }
 
         // Now that the settings have been cleared, the settings suggestion should reappear.
