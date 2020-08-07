@@ -22,6 +22,7 @@ import android.os.Bundle;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragment;
 
+import com.android.emergency.HealthStoreDataSource;
 import com.android.emergency.PreferenceKeys;
 import com.android.emergency.R;
 import com.android.emergency.ReloadablePreferenceInterface;
@@ -78,6 +79,17 @@ public class EditMedicalInfoFragment extends PreferenceFragment {
 
         mEmergencyNamePreference = (EmergencyNamePreference) findPreference(
                 PreferenceKeys.KEY_NAME);
+
+        final HealthStoreDataSource hsDataSource = new HealthStoreDataSource(getContext());
+        for (final String prefKey : PreferenceKeys.KEYS_EMERGENCY_INFO_HEALTH_STORE) {
+            final Preference pref = findPreference(prefKey);
+            if (pref != null) {
+                pref.setPreferenceDataStore(hsDataSource);
+                if (pref instanceof ReloadablePreferenceInterface) {
+                    ((ReloadablePreferenceInterface) pref).reloadFromPreference();
+                }
+            }
+        }
     }
 
     @Override

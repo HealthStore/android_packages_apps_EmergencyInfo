@@ -20,7 +20,11 @@ android_app {
         proguard_flags_files: ["proguard.flags"],
     },
     product_specific: true,
-    required: ["privapp_whitelist_com.android.emergency"],
+    required: [
+        "privapp_whitelist_com.android.emergency",
+        "privapp_whitelist_com.android.emergency-ext",
+        "default_permissions_whitelist_emergency",
+    ],
     privileged: true,
     static_libs: [
         "EmergencyInfo-lib"
@@ -42,6 +46,23 @@ android_library {
         "androidx.legacy_legacy-support-v4",
         "com.google.android.material_material",
         "androidx.transition_transition",
+        "org.lineageos.mod.health.sdk",
     ],
     defaults: ["SettingsLibDefaults"],
+}
+
+prebuilt_etc {
+    name: "privapp_whitelist_com.android.emergency-ext",
+    product_specific: true,
+    sub_dir: "permissions",
+    src: "com.android.emergency-ext.xml",
+    filename_from_src: true,
+}
+
+prebuilt_etc {
+    name: "default_permissions_whitelist_emergency",
+    product_specific: true,
+    sub_dir: "default-permissions",
+    src: "default-permissions-emergency.xml",
+    filename_from_src: true,
 }

@@ -25,6 +25,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 
+import com.android.emergency.HealthStoreDataSource;
 import com.android.emergency.PreferenceKeys;
 import com.android.emergency.R;
 import com.android.emergency.ReloadablePreferenceInterface;
@@ -42,6 +43,19 @@ public class ViewEmergencyInfoFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.view_emergency_info, rootKey);
+
+        final HealthStoreDataSource hsDataSource = new HealthStoreDataSource(getContext());
+        for (final String prefKey : PreferenceKeys.KEYS_EMERGENCY_INFO_HEALTH_STORE) {
+            final Preference pref = findPreference(prefKey);
+            if (pref == null) {
+                continue;
+            }
+            pref.setPreferenceDataStore(hsDataSource);
+            if (pref instanceof ReloadablePreferenceInterface) {
+                ((ReloadablePreferenceInterface) pref).reloadFromPreference();
+
+            }
+        }
 
         for (String preferenceKey : PreferenceKeys.KEYS_VIEW_EMERGENCY_INFO) {
             Preference preference = findPreference(preferenceKey);

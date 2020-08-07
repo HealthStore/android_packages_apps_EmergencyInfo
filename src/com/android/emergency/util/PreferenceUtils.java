@@ -22,6 +22,7 @@ import android.content.pm.PackageManager;
 import androidx.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.android.emergency.HealthStoreDataSource;
 import com.android.emergency.PreferenceKeys;
 import com.android.emergency.edit.EditInfoActivity;
 import com.android.emergency.preferences.EmergencyContactsPreference;
@@ -42,7 +43,8 @@ public class PreferenceUtils {
                 return true;
             }
         }
-        return false;
+        final HealthStoreDataSource hsDataSource = new HealthStoreDataSource(context);
+        return hsDataSource.isSet();
     }
 
     /** Returns true if there is at least one valid (still existing) emergency contact. */
