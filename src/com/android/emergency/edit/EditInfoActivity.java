@@ -43,6 +43,8 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 
+import org.lineageos.mod.health.sdk.repo.MedicalProfileRepo;
+
 import java.util.ArrayList;
 
 /**
@@ -127,6 +129,9 @@ public class EditInfoActivity extends Activity {
             sharedPreferences.edit().remove(key).commit();
         }
         sharedPreferences.edit().remove(PreferenceKeys.KEY_EMERGENCY_CONTACTS).commit();
+
+        MedicalProfileRepo.getInstance(getContentResolver()).reset();
+
         // Show the settings suggestion again, since no emergency info is set.
         PreferenceUtils.enableSettingsSuggestion(this);
 

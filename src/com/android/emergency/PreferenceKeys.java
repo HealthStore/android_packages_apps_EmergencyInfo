@@ -65,4 +65,9 @@ public interface PreferenceKeys {
     /** Keys for all viewable emergency info preferences */
     public static final String[] KEYS_VIEW_EMERGENCY_INFO = {KEY_ADDRESS, KEY_BLOOD_TYPE,
             KEY_ALLERGIES, KEY_MEDICATIONS, KEY_MEDICAL_CONDITIONS, KEY_ORGAN_DONOR};
+
+    /** Keys for all emergency info preferences that are stored in CareCache */
+    public static final String[] KEYS_EMERGENCY_INFO_HEALTH_STORE = {KEY_BLOOD_TYPE,
+            KEY_ALLERGIES, KEY_MEDICATIONS, KEY_MEDICAL_CONDITIONS, KEY_ORGAN_DONOR};
+
 }

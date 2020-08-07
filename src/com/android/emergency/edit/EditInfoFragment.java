@@ -30,6 +30,7 @@ import androidx.preference.PreferenceGroup;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.emergency.CareCacheDataSource;
 import com.android.emergency.PreferenceKeys;
 import com.android.emergency.R;
 import com.android.emergency.ReloadablePreferenceInterface;
@@ -69,10 +70,6 @@ public class EditInfoFragment extends PreferenceFragment {
             mMedicalInfoPreferences.put(preferenceKey, preference);
 
             preference.setOnPreferenceChangeListener(new PreferenceChangeListener(getActivity()));
-
-            if (((ReloadablePreferenceInterface) preference).isNotSet()) {
-                getMedicalInfoParent().removePreference(preference);
-            }
         }
 
         mEmergencyNamePreference = (EmergencyNamePreference) findPreference(
@@ -104,6 +101,25 @@ public class EditInfoFragment extends PreferenceFragment {
                 }
             }
         });
+
+        final CareCacheDataSource hsDataSource = new CareCacheDataSource(getContext());
+        for (final String prefKey : PreferenceKeys.KEYS_EMERGENCY_INFO_HEALTH_STORE) {
+            final Preference pref = findPreference(prefKey);
+            if (pref == null) {
+                continue;
+            }
+            pref.setPreferenceDataStore(hsDataSource);
+            if (pref instanceof ReloadablePreferenceInterface) {
+                ((ReloadablePreferenceInterface) pref).reloadFromPreference();
+            }
+        }
+
+        for (String preferenceKey : PreferenceKeys.KEYS_EDIT_EMERGENCY_INFO) {
+            Preference preference = findPreference(preferenceKey);
+            if (((ReloadablePreferenceInterface) preference).isNotSet()) {
+                getMedicalInfoParent().removePreference(preference);
+            }
+        }
     }
 
     @Override
